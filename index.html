@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>Image AR ▶︎ Video ▶︎ Link (MindAR)</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #000;
+        color: #fff;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, "PingFang HK",
+          "Noto Sans HK", sans-serif;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 16px;
+      }
+      .card {
+        background: #fff;
+        color: #000;
+        max-width: 420px;
+        width: 100%;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .btn {
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 0;
+        background: #0b5;
+        color: #fff;
+        cursor: pointer;
+      }
+      .ghost {
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+      }
+      .hud {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        font-size: 13px;
+        opacity: 0.8;
+      }
+    </style>
+    <!-- A-Frame + MindAR（如 CDN 有更新，改版本號即可） -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <!-- 片尾彈窗 -->
+    <div
+      id="modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="m-title"
+    >
+      <div class="card">
+        <div id="m-title" style="font-weight: 700; font-size: 18px">
+          想了解更多？
+        </div>
+        <p id="m-desc" style="margin: 8px 0 0 0">點擊下方按鈕前往目標網頁。</p>
+        <div class="row">
+          <a id="goto" class="btn" target="_blank" rel="noopener">打開連結</a>
+          <button id="closeModal" class="ghost">關閉</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HUD 提示 -->
+    <div class="hud">
+      提示：把相機對準 <b>樣本目標圖</b>（MindAR
+      的「card」示例）。要用你自己張圖：請看 README.md，生成
+      <code>targets.mind</code> 後，把下面的 <code>imageTargetSrc</code> 改成
+      <code>./assets/targets.mind</code>。
+    </div>
+
+    <!-- AR 場景 -->
+    <a-scene
+      mindar-image="imageTargetSrc: ./assets/targets.mind"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      renderer="colorManagement: true, physicallyCorrectLights: true"
+    >
+      <a-assets>
+        <!-- 實戰請改成相對路徑，例如 ./assets/video.mp4 -->
+        <video
+          id="vid"
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+          preload="auto"
+          webkit-playsinline
+          playsinline
+          muted
+        ></video>
+      </a-assets>
+
+      <!-- 相機 -->
+      <a-camera position="0 0 0" look-controls="enabled:false"></a-camera>
+
+      <!-- 偵測到目標圖（targets.mind 的第 0 個 target）時，把影片作為平面疊上去 -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- 調寬高比例配合影片（例如 16:9 = 1 : 0.5625）-->
+        <a-video
+          id="plane"
+          src="#vid"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="-90 0 0"
+        ></a-video>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      // === 片尾彈連結設定 ===
+      const OUT_LINK = "https://example.com";
+      const modal = document.getElementById("modal");
+      const gotoA = document.getElementById("goto");
+      const closeBtn = document.getElementById("closeModal");
+      const videoEl = document.getElementById("vid");
+
+      // 找到目標 → 播片；丟失目標 → 暫停（可按需要改為繼續播）
+      const anchor = document.querySelector("[mindar-image-target]");
+      anchor.addEventListener("targetFound", () => {
+        videoEl.play().catch(() => {
+          /* 某些裝置需要用戶點擊一次 */
+        });
+      });
+      anchor.addEventListener("targetLost", () => {
+        videoEl.pause();
+      });
+
+      // 片尾彈窗
+      videoEl.addEventListener("ended", () => {
+        gotoA.href = OUT_LINK;
+        modal.style.display = "flex";
+      });
+      closeBtn.addEventListener("click", () => (modal.style.display = "none"));
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
