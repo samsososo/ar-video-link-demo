@@ -7,32 +7,40 @@
   </head>
   <body>
     <!-- Landing Page -->
-    <div id="landing" style="
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      color: white;
-      font-family: Arial, sans-serif;
-    ">
-      <h1 style="margin-bottom: 30px; text-align: center;">AR Experience</h1>
-      <button id="startScan" style="
-        padding: 15px 30px;
-        font-size: 18px;
-        background: #4CAF50;
+    <div
+      id="landing"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
         color: white;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      ">Start Scan</button>
+        font-family: Arial, sans-serif;
+      "
+    >
+      <h1 style="margin-bottom: 30px; text-align: center">AR Experience</h1>
+      <button
+        id="startScan"
+        style="
+          padding: 15px 30px;
+          font-size: 18px;
+          background: #4caf50;
+          color: white;
+          border: none;
+          border-radius: 25px;
+          cursor: pointer;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        "
+      >
+        Start Scan
+      </button>
     </div>
 
     <!-- AR Scene -->
@@ -40,142 +48,506 @@
       mindar-image="imageTargetSrc: ./targets.mind;"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-      style="display: none;"
+      style="display: none"
       id="arScene"
     >
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-      
+
       <a-assets>
-        <video id="vid1" playsinline webkit-playsinline preload="auto" muted>
-          <source src="./testing.MP4" type="video/mp4">
-          <source src="./testing.webm" type="video/webm">
+        <!-- Preload all videos from CDN -->
+        <video
+          id="vid_AaniJean"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/AaniJean.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_Chandelier"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/Chandelier.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_DarkQueen"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/DarkQueen.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_Encounter"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/Encounter.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_GoldBoat"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/GoldBoat.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_MagicGarden"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/MagicGarden.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_Motobike"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/Motobike.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_Reunion"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/Reunion.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_Torture"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/Torture.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          id="vid_War"
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          crossorigin="anonymous"
+        >
+          <source
+            src="https://d392t2kbzfe6yu.cloudfront.net/config/testing/War.mp4"
+            type="video/mp4"
+          />
         </video>
       </a-assets>
 
-      <a-entity mindar-image-target="targetIndex: 0" id="target1">
-        <a-video id="videoPlane" src="#vid1" width="1" height="0.75" position="0 0 0" rotation="0 0 0" material="shader: flat; transparent: true; side: double"></a-video>
+      <!-- One entity per target index inside a combined targets.mind -->
+      <a-entity mindar-image-target="targetIndex: 0" id="target_AaniJean">
+        <a-video
+          id="plane_AaniJean"
+          src="#vid_AaniJean"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 1" id="target_Chandelier">
+        <a-video
+          id="plane_Chandelier"
+          src="#vid_Chandelier"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 2" id="target_DarkQueen">
+        <a-video
+          id="plane_DarkQueen"
+          src="#vid_DarkQueen"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 3" id="target_Encounter">
+        <a-video
+          id="plane_Encounter"
+          src="#vid_Encounter"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 4" id="target_GoldBoat">
+        <a-video
+          id="plane_GoldBoat"
+          src="#vid_GoldBoat"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 5" id="target_MagicGarden">
+        <a-video
+          id="plane_MagicGarden"
+          src="#vid_MagicGarden"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 6" id="target_Motobike">
+        <a-video
+          id="plane_Motobike"
+          src="#vid_Motobike"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 7" id="target_Reunion">
+        <a-video
+          id="plane_Reunion"
+          src="#vid_Reunion"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 8" id="target_Torture">
+        <a-video
+          id="plane_Torture"
+          src="#vid_Torture"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 9" id="target_War">
+        <a-video
+          id="plane_War"
+          src="#vid_War"
+          width="1"
+          height="0.5625"
+          position="0 0 0"
+          rotation="0 0 0"
+          material="shader: flat; transparent: true; side: double"
+        ></a-video>
       </a-entity>
     </a-scene>
 
     <!-- Learn More Button -->
-    <button id="learnMoreBtn" style="
-      position: fixed;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 15px 30px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      display: none;
-      z-index: 1001;
-      font-size: 16px;
-      font-weight: bold;
-    ">Learn More</button>
+    <button
+      id="learnMoreBtn"
+      style="
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 30px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        display: none;
+        z-index: 1001;
+        font-size: 16px;
+        font-weight: bold;
+      "
+    >
+      Learn More
+    </button>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const landing = document.getElementById('landing');
-        const arScene = document.getElementById('arScene');
-        const startScanBtn = document.getElementById('startScan');
-        const learnMoreBtn = document.getElementById('learnMoreBtn');
+      document.addEventListener("DOMContentLoaded", function () {
+        const LOST_GRACE_MS = 600; // pause shortly after lost to avoid flicker
+        const landing = document.getElementById("landing");
+        const arScene = document.getElementById("arScene");
+        const startScanBtn = document.getElementById("startScan");
+        const learnMoreBtn = document.getElementById("learnMoreBtn");
 
-        startScanBtn.onclick = function() {
-          console.log('Start scan clicked');
-          navigator.mediaDevices.getUserMedia({
-            video: {
-              facingMode: { ideal: 'environment' },
-              width: { ideal: 1920 },
-              height: { ideal: 1080 }
+        // Optional: allow overriding the target file via ?src=targets_X.mind
+        const urlParams = new URLSearchParams(window.location.search);
+        const overrideSrc = urlParams.get("src");
+        if (overrideSrc) {
+          arScene.setAttribute(
+            "mindar-image",
+            `imageTargetSrc: ./${overrideSrc};`
+          );
+          // If loading a single-target .mind via ?src=targets_X.mind, map that X to targetIndex:0
+          // and hide other targets to ensure correct video plays.
+          try {
+            const nameFromSrc = overrideSrc
+              .replace(/^.*\/(?:)?/, "") // strip path
+              .replace(/^targets_/, "")
+              .replace(/\.mind$/i, "");
+            const targetIds = [
+              "AaniJean",
+              "Chandelier",
+              "DarkQueen",
+              "Encounter",
+              "GoldBoat",
+              "MagicGarden",
+              "Motobike",
+              "Reunion",
+              "Torture",
+              "War",
+            ];
+            // Set all targets invisible initially
+            targetIds.forEach((n) => {
+              const el = document.getElementById(`target_${n}`);
+              if (el) el.setAttribute("visible", "false");
+            });
+            const matched = document.getElementById(`target_${nameFromSrc}`);
+            if (matched) {
+              // Ensure this one is index 0 so single-target .mind works
+              matched.setAttribute("mindar-image-target", "targetIndex: 0");
+              matched.setAttribute("visible", "true");
             }
-          }).then(stream => {
-            const track = stream.getVideoTracks()[0];
-            const settings = track.getSettings ? track.getSettings() : {};
-            console.log('Camera settings:', settings);
-            // Stop preview stream; MindAR will open the camera itself
-            stream.getTracks().forEach(t => t.stop());
-            landing.style.display = 'none';
-            arScene.style.display = 'block';
-            // Prime video to unlock autoplay on iOS
-            try {
-              video1.setAttribute('playsinline', 'true');
-              video1.setAttribute('webkit-playsinline', 'true');
-              video1.muted = true;
-              video1.load();
-              video1.play().then(() => {
-                video1.pause();
-                video1.currentTime = 0;
-                console.log('Video primed');
-              }).catch(err => console.log('Prime failed:', err));
-            } catch (e) { console.log('Prime exception:', e); }
-          }).catch(err => {
-            console.error('getUserMedia failed:', err);
-            // Still proceed to show scene; user may grant inside browser UI
-            landing.style.display = 'none';
-            arScene.style.display = 'block';
-          });
+          } catch (_) {}
+        } else {
+          // Auto-detect a usable targets file to avoid infinite loading when targets.mind is missing
+          (async () => {
+            const candidates = [
+              "targets.mind",
+              "targets_AaniJean.mind",
+              "targets_Chandelier.mind",
+              "targets_DarkQueen.mind",
+              "targets_Encounter.mind",
+              "targets_GoldBoat.mind",
+              "targets_MagicGarden.mind",
+              "targets_Motobike.mind",
+              "targets_Reunion.mind",
+              "targets_Torture.mind",
+              "targets_War.mind",
+            ];
+            for (const file of candidates) {
+              try {
+                const res = await fetch(`./${file}`, { method: "HEAD" });
+                if (res.ok) {
+                  arScene.setAttribute(
+                    "mindar-image",
+                    `imageTargetSrc: ./${file};`
+                  );
+                  // If it's a single-target file, align that target to index 0 and hide others
+                  if (file !== "targets.mind") {
+                    const nameFromSrc = file
+                      .replace(/^.*\/(?:)?/, "")
+                      .replace(/^targets_/, "")
+                      .replace(/\.mind$/i, "");
+                    const targetIds = [
+                      "AaniJean",
+                      "Chandelier",
+                      "DarkQueen",
+                      "Encounter",
+                      "GoldBoat",
+                      "MagicGarden",
+                      "Motobike",
+                      "Reunion",
+                      "Torture",
+                      "War",
+                    ];
+                    targetIds.forEach((n) => {
+                      const el = document.getElementById(`target_${n}`);
+                      if (el)
+                        el.setAttribute(
+                          "visible",
+                          n === nameFromSrc ? "true" : "false"
+                        );
+                    });
+                    const matched = document.getElementById(
+                      `target_${nameFromSrc}`
+                    );
+                    if (matched)
+                      matched.setAttribute(
+                        "mindar-image-target",
+                        "targetIndex: 0"
+                      );
+                  }
+                  break;
+                }
+              } catch (_) {}
+            }
+          })();
+        }
+
+        startScanBtn.onclick = function () {
+          console.log("Start scan clicked");
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                facingMode: { ideal: "environment" },
+                width: { ideal: 1920 },
+                height: { ideal: 1080 },
+              },
+            })
+            .then((stream) => {
+              const track = stream.getVideoTracks()[0];
+              const settings = track.getSettings ? track.getSettings() : {};
+              console.log("Camera settings:", settings);
+              // Stop preview stream; MindAR will open the camera itself
+              stream.getTracks().forEach((t) => t.stop());
+              landing.style.display = "none";
+              arScene.style.display = "block";
+              // Preload videos so they are ready; do not force muted/autoplay to allow sound
+              const videos = Array.from(
+                document.querySelectorAll("a-assets video")
+              );
+              videos.forEach((v) => {
+                try {
+                  v.setAttribute("playsinline", "true");
+                  v.setAttribute("webkit-playsinline", "true");
+                  v.load();
+                  // Do not auto-play here to avoid requiring mute; play will be triggered on targetFound
+                } catch (_) {}
+              });
+            })
+            .catch((err) => {
+              console.error("getUserMedia failed:", err);
+              // Still proceed to show scene; user may grant inside browser UI
+              landing.style.display = "none";
+              arScene.style.display = "block";
+            });
         };
 
         // Listen for AR initialization
-        arScene.addEventListener('mindARImageTrackingInitialized', () => {
-          console.log('MindAR initialized successfully');
+        arScene.addEventListener("mindARImageTrackingInitialized", () => {
+          console.log("MindAR initialized successfully");
         });
 
-        arScene.addEventListener('mindARImageTrackingError', (error) => {
-          console.error('MindAR initialization error:', error);
+        arScene.addEventListener("mindARImageTrackingError", (error) => {
+          console.error("MindAR initialization error:", error);
         });
 
-        const target1 = document.querySelector('#target1');
-        const video1 = document.querySelector('#vid1');
-        const videoPlane = document.querySelector('#videoPlane');
-        // stop immediately on loss
+        // Mapping from target ids to their video and plane elements
+        const targetIds = [
+          "AaniJean",
+          "Chandelier",
+          "DarkQueen",
+          "Encounter",
+          "GoldBoat",
+          "MagicGarden",
+          "Motobike",
+          "Reunion",
+          "Torture",
+          "War",
+        ];
+        const targets = {};
+        const targetLostTimers = {};
+        let currentlyPlayingId = null;
 
-        target1.addEventListener('targetFound', () => {
-          console.log('Target found');
-          console.log('Video element:', video1);
-          console.log('Video readyState:', video1.readyState);
-          console.log('Video duration:', video1.duration);
-          if (targetLostTimer) {
-            clearTimeout(targetLostTimer);
-            targetLostTimer = null;
-          }
-          // ensure content stays visible when re-found
-          target1.object3D.visible = true;
-          if (videoPlane) videoPlane.object3D.visible = true;
-          video1.play().then(() => {
-            console.log('Video started playing');
-          }).catch((error) => {
-            console.error('Video play failed:', error);
-            // If autoplay fails, wait for user click
-            document.addEventListener('click', function playVideo() {
-              video1.play();
-              document.removeEventListener('click', playVideo);
-            }, { once: true });
+        targetIds.forEach((name) => {
+          const targetEl = document.getElementById(`target_${name}`);
+          const videoEl = document.getElementById(`vid_${name}`);
+          const planeEl = document.getElementById(`plane_${name}`);
+          if (!targetEl || !videoEl || !planeEl) return;
+          targets[name] = { targetEl, videoEl, planeEl };
+
+          targetEl.addEventListener("targetFound", () => {
+            // cancel any pending lost timer for this target
+            if (targetLostTimers[name]) {
+              clearTimeout(targetLostTimers[name]);
+              targetLostTimers[name] = null;
+            }
+            // hide other planes and pause other videos
+            Object.entries(targets).forEach(
+              ([otherName, { targetEl: t, planeEl: p, videoEl: v }]) => {
+                if (otherName !== name) {
+                  v.pause();
+                  p.object3D.visible = false;
+                }
+              }
+            );
+            // show this plane and play
+            targetEl.object3D.visible = true;
+            planeEl.object3D.visible = true;
+            currentlyPlayingId = name;
+            videoEl.play().catch(() => {
+              // If autoplay with sound is blocked, wait for a single user tap
+              const onceClick = () => {
+                videoEl.play().catch(() => {});
+                document.removeEventListener("click", onceClick);
+              };
+              document.addEventListener("click", onceClick, { once: true });
+            });
+          });
+
+          targetEl.addEventListener("targetLost", () => {
+            if (targetLostTimers[name]) clearTimeout(targetLostTimers[name]);
+            targetEl.object3D.visible = true; // keep visible during grace to avoid flicker
+            targetLostTimers[name] = setTimeout(() => {
+              videoEl.pause();
+              targetEl.object3D.visible = false;
+              planeEl.object3D.visible = false;
+              if (currentlyPlayingId === name) currentlyPlayingId = null;
+            }, LOST_GRACE_MS);
+          });
+
+          videoEl.addEventListener("ended", () => {
+            if (currentlyPlayingId === name) {
+              learnMoreBtn.style.display = "block";
+            }
           });
         });
-        
-        target1.addEventListener('targetLost', () => {
-          console.log('Target lost - will pause after grace');
-          if (targetLostTimer) clearTimeout(targetLostTimer);
-          // keep visible during grace period
-          target1.object3D.visible = true;
-          targetLostTimer = setTimeout(() => {
-            console.log('Target still lost - pausing video');
-            video1.pause();
-            // finally hide after grace if still not found
-            target1.object3D.visible = false;
-            if (videoPlane) videoPlane.object3D.visible = false;
-          }, LOST_GRACE_MS);
-        });
 
-        video1.addEventListener('ended', () => {
-          learnMoreBtn.style.display = 'block';
-        });
-
-        learnMoreBtn.onclick = function() {
-          window.location.href = 'https://www.cityofdreamsmacau.com/tc/house-of-dancing-water';
+        learnMoreBtn.onclick = function () {
+          window.location.href =
+            "https://www.cityofdreamsmacau.com/tc/house-of-dancing-water";
         };
       });
     </script>
